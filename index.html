@@ -4,569 +4,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MyGangs">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <title>MyGangs</title>
+    <link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22MyGangs%22%2C%22short_name%22%3A%22MyGangs%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23000000%22%2C%22theme_color%22%3A%22%23FFC000%22%2C%22icons%22%3A%5B%5D%7D">
 
 ```
-<!-- PWA / iOS Meta -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="MyGangs">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#000000">
-<title>MyGangs</title>
-
-<!-- Inline Manifest via link -->
-<link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22MyGangs%22%2C%22short_name%22%3A%22MyGangs%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23000000%22%2C%22theme_color%22%3A%22%23FFC000%22%2C%22icons%22%3A%5B%5D%7D">
-
-<!-- Apple Touch Icons (generated via canvas at runtime) -->
-<link id="apple-icon" rel="apple-touch-icon" href="">
+<!-- Real PNG icon generated via canvas — must be set before page load -->
+<link rel="apple-touch-icon" sizes="512x512" href="data:image/png;base64,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">
 
 <style>
     * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
-
     :root {
-        --bg: #000;
-        --card: #1c1c1e;
-        --card2: #2c2c2e;
-        --card3: #3a3a3c;
-        --gold: #FFC000;
-        --red: #ff453a;
-        --green: #32d74b;
-        --text: #ffffff;
-        --sub: #8e8e93;
+        --bg: #000; --card: #1c1c1e; --card2: #2c2c2e; --card3: #3a3a3c;
+        --gold: #FFC000; --red: #ff453a; --green: #32d74b;
+        --text: #ffffff; --sub: #8e8e93;
         --safe-top: env(safe-area-inset-top, 44px);
         --safe-bot: env(safe-area-inset-bottom, 34px);
     }
-
-    @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: .5; }
-    }
-    @keyframes goldShine {
-        0%   { background-position: -200% center; }
-        100% { background-position: 200% center; }
-    }
-    @keyframes ripple {
-        to { transform: scale(2.5); opacity: 0; }
-    }
-
-    html, body {
-        margin: 0; padding: 0;
-        height: 100%; width: 100%;
-        overflow: hidden;
-        background: var(--bg);
-        color: var(--text);
-        font-family: -apple-system, 'SF Pro Display', sans-serif;
-        -webkit-font-smoothing: antialiased;
-    }
-
-    .app {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        padding-top: var(--safe-top);
-        padding-bottom: var(--safe-bot);
-        animation: fadeUp .5s ease both;
-    }
-
-    /* ── TOP STATUS BAR ── */
-    .topbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 24px 0;
-    }
-    .app-name {
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--gold);
-        background: linear-gradient(90deg, #FFC000, #fff8dc, #FFC000);
-        background-size: 200%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: goldShine 3s linear infinite;
-    }
-    .badge {
-        font-size: 11px;
-        color: var(--sub);
-        letter-spacing: .5px;
-    }
-
-    /* ── MAIN CARD ── */
-    .card {
-        flex: 1;
-        margin: 14px 16px;
-        background: var(--card);
-        border-radius: 32px;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        box-shadow: 0 20px 60px rgba(0,0,0,.7);
-    }
-
-    /* ── TIMER SECTION ── */
-    .timer-section {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 24px;
-        position: relative;
-    }
-
-    .status-label {
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        color: var(--sub);
-        margin-bottom: 10px;
-        transition: color .4s;
-    }
-    .status-label.active { color: var(--gold); }
-    .status-label.done   { color: var(--green); }
-
-    #timeLeft {
-        font-size: clamp(52px, 15vw, 68px);
-        font-weight: 800;
-        font-variant-numeric: tabular-nums;
-        letter-spacing: -2px;
-        color: var(--red);
-        transition: color .4s;
-        line-height: 1;
-        margin: 8px 0 20px;
-    }
-    #timeLeft.over { color: var(--green); }
-    #timeLeft.idle { color: var(--sub); }
-
-    /* Radial progress ring */
-    .ring-wrap {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        pointer-events: none;
-        opacity: .15;
-    }
-    #progress-ring { transform: rotate(-90deg); }
-    #ring-circle {
-        fill: none;
-        stroke: var(--gold);
-        stroke-width: 3;
-        stroke-linecap: round;
-        stroke-dasharray: 565.5;
-        stroke-dashoffset: 565.5;
-        transition: stroke-dashoffset 1s linear;
-    }
-
-    /* ── PROGRESS BAR ── */
-    .bar-area { padding: 0 24px 16px; }
-    .bar-row {
-        display: flex;
-        justify-content: space-between;
-        font-size: 11px;
-        color: var(--sub);
-        margin-bottom: 8px;
-        font-weight: 500;
-    }
-    .bar-bg {
-        height: 6px;
-        background: var(--card2);
-        border-radius: 6px;
-        overflow: hidden;
-    }
-    #bar-fill {
-        height: 100%;
-        width: 0%;
-        background: linear-gradient(90deg, #c89000, var(--gold), #ffe680);
-        border-radius: 6px;
-        transition: width 1s linear;
-    }
-
-    /* ── GOALS ROW ── */
-    .goals-row {
-        display: flex;
-        gap: 10px;
-        padding: 0 16px 16px;
-    }
-    .goal-pill {
-        flex: 1;
-        background: var(--card2);
-        border-radius: 18px;
-        padding: 12px 14px;
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-    }
-    .goal-pill label {
-        font-size: 10px;
-        font-weight: 700;
-        color: var(--sub);
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
-    .goal-pill span {
-        font-size: 17px;
-        font-weight: 700;
-        color: var(--text);
-        font-variant-numeric: tabular-nums;
-    }
-    .goal-pill .dot {
-        width: 6px; height: 6px;
-        border-radius: 50%;
-        margin-top: 4px;
-    }
-    .dot-half { background: var(--gold); }
-    .dot-full { background: var(--green); }
-
-    /* ── DIVIDER ── */
-    .divider {
-        height: 1px;
-        background: var(--card2);
-        margin: 0 16px;
-    }
-
-    /* ── BOTTOM CONTROLS ── */
-    .controls {
-        padding: 16px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .time-input-wrap {
-        position: relative;
-    }
-    .time-input-label {
-        position: absolute;
-        top: 10px; left: 16px;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        color: var(--gold);
-        pointer-events: none;
-    }
-    input[type="time"] {
-        width: 100%;
-        background: var(--card2);
-        color: white;
-        border: 1.5px solid transparent;
-        padding: 32px 16px 12px;
-        border-radius: 16px;
-        font-size: 20px;
-        font-weight: 600;
-        -webkit-appearance: none;
-        outline: none;
-        transition: border-color .2s;
-        font-variant-numeric: tabular-nums;
-    }
-    input[type="time"]:focus {
-        border-color: var(--gold);
-    }
-    input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(1); }
-
-    .btns { display: flex; gap: 10px; }
-    button {
-        flex: 1;
-        padding: 16px;
-        border-radius: 16px;
-        border: none;
-        font-weight: 700;
-        font-size: 16px;
-        letter-spacing: .3px;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-        -webkit-tap-highlight-color: transparent;
-        transition: transform .1s, opacity .1s;
-    }
-    button:active { transform: scale(.96); opacity: .85; }
-
-    .btn-start {
-        background: linear-gradient(135deg, #c89000, var(--gold));
-        color: #000;
-        box-shadow: 0 4px 20px rgba(255,192,0,.35);
-    }
-    .btn-start.running {
-        background: linear-gradient(135deg, #1a4020, #1e5c28);
-        color: var(--green);
-        box-shadow: 0 4px 20px rgba(50,215,75,.2);
-    }
-    .btn-reset {
-        background: var(--card3);
-        color: white;
-    }
-
-    /* Ripple effect */
-    .ripple-el {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255,255,255,.3);
-        width: 60px; height: 60px;
-        margin-top: -30px; margin-left: -30px;
-        animation: ripple .6s ease-out forwards;
-        pointer-events: none;
-    }
-
-    /* ── BOTTOM NAV ── */
-    .bottom-nav {
-        display: flex;
-        justify-content: space-around;
-        padding: 10px 16px calc(var(--safe-bot) + 4px);
-        background: var(--bg);
-    }
-    .nav-btn {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-        background: none;
-        border: none;
-        color: var(--sub);
-        font-size: 10px;
-        font-weight: 600;
-        letter-spacing: .5px;
-        text-transform: uppercase;
-        padding: 8px;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: color .2s;
-    }
-    .nav-btn .nav-icon { font-size: 20px; }
-    .nav-btn.active { color: var(--gold); }
-
-    /* ── HISTORY SCREEN ── */
-    #history-screen {
-        display: none;
-        flex-direction: column;
-        flex: 1;
-        overflow: hidden;
-    }
-    #history-screen.visible { display: flex; }
-    #main-screen.hidden { display: none; }
-
-    .history-card {
-        flex: 1;
-        margin: 14px 16px 0;
-        background: var(--card);
-        border-radius: 32px;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        box-shadow: 0 20px 60px rgba(0,0,0,.7);
-    }
-    .history-header {
-        padding: 20px 20px 12px;
-        border-bottom: 1px solid var(--card2);
-    }
-    .history-title {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--text);
-    }
-    .history-sub {
-        font-size: 11px;
-        color: var(--sub);
-        margin-top: 2px;
-    }
-    .history-list {
-        flex: 1;
-        overflow-y: auto;
-        padding: 12px 16px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        -webkit-overflow-scrolling: touch;
-    }
-    .history-empty {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: var(--sub);
-        font-size: 13px;
-        gap: 8px;
-    }
-    .history-empty .empty-icon { font-size: 40px; opacity: .4; }
-    .day-row {
-        background: var(--card2);
-        border-radius: 18px;
-        padding: 14px 16px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-    .day-date {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-width: 36px;
-    }
-    .day-date .dd {
-        font-size: 20px;
-        font-weight: 800;
-        color: var(--gold);
-        line-height: 1;
-    }
-    .day-date .dmon {
-        font-size: 9px;
-        font-weight: 600;
-        color: var(--sub);
-        text-transform: uppercase;
-        letter-spacing: .5px;
-    }
-    .day-sep { width: 1px; height: 36px; background: var(--card3); }
-    .day-info { flex: 1; }
-    .day-times {
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--text);
-        margin-bottom: 3px;
-    }
-    .day-worked {
-        font-size: 11px;
-        color: var(--sub);
-    }
-    .day-badge {
-        font-size: 10px;
-        font-weight: 700;
-        padding: 4px 10px;
-        border-radius: 20px;
-        letter-spacing: .5px;
-    }
-    .day-badge.full { background: rgba(50,215,75,.15); color: var(--green); }
-    .day-badge.half { background: rgba(255,192,0,.15); color: var(--gold); }
-    .day-badge.partial { background: rgba(255,69,58,.12); color: var(--red); }
-
-    /* ── INSTALL BANNER ── */
-    #install-banner {
-        position: fixed;
-        bottom: calc(var(--safe-bot) + 10px);
-        left: 16px; right: 16px;
-        background: var(--card);
-        border: 1px solid var(--card3);
-        border-radius: 20px;
-        padding: 14px 18px;
-        display: none;
-        align-items: center;
-        gap: 12px;
-        box-shadow: 0 10px 40px rgba(0,0,0,.8);
-        animation: fadeUp .4s ease;
-        z-index: 99;
-    }
-    #install-banner .icon {
-        width: 44px; height: 44px;
-        background: var(--gold);
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 22px;
-        flex-shrink: 0;
-    }
-    #install-banner .text { flex: 1; }
-    #install-banner .text b { display: block; font-size: 14px; }
-    #install-banner .text small { color: var(--sub); font-size: 12px; }
-    #install-banner button {
-        flex: none;
-        background: var(--gold);
-        color: #000;
-        padding: 10px 18px;
-        font-size: 14px;
-        border-radius: 12px;
-    }
-    #dismiss-banner {
-        background: transparent !important;
-        color: var(--sub) !important;
-        box-shadow: none !important;
-        padding: 10px 8px !important;
-        font-size: 20px !important;
-    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)} }
+    @keyframes goldShine { 0%{background-position:-200% center}100%{background-position:200% center} }
+    @keyframes ripple { to{transform:scale(2.5);opacity:0} }
+    html,body{margin:0;padding:0;height:100%;width:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:-apple-system,'SF Pro Display',sans-serif;-webkit-font-smoothing:antialiased;}
+    .app{display:flex;flex-direction:column;height:100%;padding-top:var(--safe-top);padding-bottom:var(--safe-bot);animation:fadeUp .5s ease both;}
+    .topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 24px 0;}
+    .app-name{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(90deg,#FFC000,#fff8dc,#FFC000);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:goldShine 3s linear infinite;}
+    .badge{font-size:11px;color:var(--sub);letter-spacing:.5px;}
+    .card{flex:1;margin:14px 16px;background:var(--card);border-radius:32px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.7);}
+    .timer-section{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;position:relative;}
+    .status-label{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--sub);margin-bottom:10px;transition:color .4s;}
+    .status-label.active{color:var(--gold);} .status-label.done{color:var(--green);}
+    #timeLeft{font-size:clamp(52px,15vw,68px);font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-2px;color:var(--red);transition:color .4s;line-height:1;margin:8px 0 20px;}
+    #timeLeft.over{color:var(--green);} #timeLeft.idle{color:var(--sub);}
+    .ring-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:.15;}
+    #progress-ring{transform:rotate(-90deg);}
+    #ring-circle{fill:none;stroke:var(--gold);stroke-width:3;stroke-linecap:round;stroke-dasharray:565.5;stroke-dashoffset:565.5;transition:stroke-dashoffset 1s linear;}
+    .bar-area{padding:0 24px 16px;}
+    .bar-row{display:flex;justify-content:space-between;font-size:11px;color:var(--sub);margin-bottom:8px;font-weight:500;}
+    .bar-bg{height:6px;background:var(--card2);border-radius:6px;overflow:hidden;}
+    #bar-fill{height:100%;width:0%;background:linear-gradient(90deg,#c89000,var(--gold),#ffe680);border-radius:6px;transition:width 1s linear;}
+    .goals-row{display:flex;gap:10px;padding:0 16px 16px;}
+    .goal-pill{flex:1;background:var(--card2);border-radius:18px;padding:12px 14px;display:flex;flex-direction:column;gap:3px;}
+    .goal-pill label{font-size:10px;font-weight:700;color:var(--sub);letter-spacing:1px;text-transform:uppercase;}
+    .goal-pill span{font-size:17px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;}
+    .goal-pill .dot{width:6px;height:6px;border-radius:50%;margin-top:4px;}
+    .dot-half{background:var(--gold);} .dot-full{background:var(--green);}
+    .divider{height:1px;background:var(--card2);margin:0 16px;}
+    .controls{padding:16px;display:flex;flex-direction:column;gap:12px;}
+    .time-input-wrap{position:relative;}
+    .time-input-label{position:absolute;top:10px;left:16px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);pointer-events:none;}
+    input[type="time"]{width:100%;background:var(--card2);color:white;border:1.5px solid transparent;padding:32px 16px 12px;border-radius:16px;font-size:20px;font-weight:600;-webkit-appearance:none;outline:none;transition:border-color .2s;font-variant-numeric:tabular-nums;color-scheme:dark;}
+    input[type="time"]:focus{border-color:var(--gold);}
+    input[type="time"]::-webkit-calendar-picker-indicator{filter:invert(1);}
+    .btns{display:flex;gap:10px;}
+    button{flex:1;padding:16px;border-radius:16px;border:none;font-weight:700;font-size:16px;letter-spacing:.3px;cursor:pointer;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;transition:transform .1s,opacity .1s;}
+    button:active{transform:scale(.96);opacity:.85;}
+    .btn-start{background:linear-gradient(135deg,#c89000,var(--gold));color:#000;box-shadow:0 4px 20px rgba(255,192,0,.35);}
+    .btn-start.running{background:linear-gradient(135deg,#1a4020,#1e5c28);color:var(--green);box-shadow:0 4px 20px rgba(50,215,75,.2);}
+    .btn-reset{background:var(--card3);color:white;}
+    .ripple-el{position:absolute;border-radius:50%;background:rgba(255,255,255,.3);width:60px;height:60px;margin-top:-30px;margin-left:-30px;animation:ripple .6s ease-out forwards;pointer-events:none;}
+    /* BOTTOM NAV */
+    .bottom-nav{display:flex;justify-content:space-around;padding:10px 16px calc(var(--safe-bot) + 4px);background:var(--bg);}
+    .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:none;color:var(--sub);font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;padding:8px;border-radius:12px;cursor:pointer;transition:color .2s;}
+    .nav-btn .nav-icon{font-size:20px;}
+    .nav-btn.active{color:var(--gold);}
+    /* HISTORY */
+    #history-screen{display:none;flex-direction:column;flex:1;overflow:hidden;}
+    .history-card{flex:1;margin:14px 16px 0;background:var(--card);border-radius:32px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.7);}
+    .history-header{padding:20px 20px 12px;border-bottom:1px solid var(--card2);}
+    .history-title{font-size:18px;font-weight:700;color:var(--text);}
+    .history-sub{font-size:11px;color:var(--sub);margin-top:2px;}
+    .history-list{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch;}
+    .history-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--sub);font-size:13px;gap:8px;}
+    .history-empty .empty-icon{font-size:40px;opacity:.4;}
+    .day-row{background:var(--card2);border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:12px;}
+    .day-date{display:flex;flex-direction:column;align-items:center;min-width:36px;}
+    .day-date .dd{font-size:20px;font-weight:800;color:var(--gold);line-height:1;}
+    .day-date .dmon{font-size:9px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;}
+    .day-sep{width:1px;height:36px;background:var(--card3);}
+    .day-info{flex:1;}
+    .day-times{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;}
+    .day-worked{font-size:11px;color:var(--sub);}
+    .day-badge{font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px;}
+    .day-badge.full{background:rgba(50,215,75,.15);color:var(--green);}
+    .day-badge.half{background:rgba(255,192,0,.15);color:var(--gold);}
+    .day-badge.partial{background:rgba(255,69,58,.12);color:var(--red);}
+    /* INSTALL BANNER */
+    #install-banner{position:fixed;bottom:calc(var(--safe-bot) + 10px);left:16px;right:16px;background:var(--card);border:1px solid var(--card3);border-radius:20px;padding:14px 18px;display:none;align-items:center;gap:12px;box-shadow:0 10px 40px rgba(0,0,0,.8);z-index:99;}
+    #install-banner .icon{width:44px;height:44px;background:var(--gold);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+    #install-banner .text{flex:1;}
+    #install-banner .text b{display:block;font-size:14px;}
+    #install-banner .text small{color:var(--sub);font-size:12px;}
+    #install-banner button{flex:none;background:var(--gold);color:#000;padding:10px 18px;font-size:14px;border-radius:12px;}
+    #dismiss-banner{background:transparent!important;color:var(--sub)!important;box-shadow:none!important;padding:10px 8px!important;font-size:20px!important;}
 </style>
 ```
 
 </head>
 <body>
-
 <div class="app">
+    <div class="topbar">
+        <span class="app-name">⚡ MyGangs</span>
+        <span class="badge">SUNNY'S</span>
+    </div>
 
 ```
-<!-- TOP BAR -->
-<div class="topbar">
-    <span class="app-name">⚡ MyGangs</span>
-    <span class="badge">SUNNY'S</span>
+<div id="main-screen" style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+    <div class="card">
+        <div class="timer-section">
+            <div class="ring-wrap">
+                <svg id="progress-ring" width="200" height="200" viewBox="0 0 200 200">
+                    <circle id="ring-circle" cx="100" cy="100" r="90"/>
+                </svg>
+            </div>
+            <div class="status-label" id="statusLabel">WAITING TO START</div>
+            <div id="timeLeft" class="idle">00:00:00</div>
+            <div id="elapsed-label" style="font-size:11px;color:var(--sub);letter-spacing:1.5px;text-transform:uppercase;margin-top:-12px;margin-bottom:8px;"></div>
+        </div>
+        <div class="bar-area">
+            <div class="bar-row"><span>Progress</span><span id="pct">0%</span></div>
+            <div class="bar-bg"><div id="bar-fill"></div></div>
+        </div>
+        <div class="goals-row">
+            <div class="goal-pill"><label>Half Day</label><span id="h">--:--</span><div class="dot dot-half"></div></div>
+            <div class="goal-pill"><label>Full Day</label><span id="f">--:--</span><div class="dot dot-full"></div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="controls">
+            <div class="time-input-wrap">
+                <div class="time-input-label">Check-in Time</div>
+                <input type="time" id="tIn">
+            </div>
+            <div class="btns">
+                <button class="btn-start" id="startBtn" onclick="begin(event)">▶ START</button>
+                <button class="btn-reset" onclick="exitApp(event)">👋 CHECK OUT</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- MAIN SCREEN -->
-<div id="main-screen" style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
-
-<!-- MAIN CARD -->
-<div class="card">
-
-    <!-- TIMER -->
-    <div class="timer-section">
-        <div class="ring-wrap">
-            <svg id="progress-ring" width="200" height="200" viewBox="0 0 200 200">
-                <circle id="ring-circle" cx="100" cy="100" r="90"/>
-            </svg>
-        </div>
-        <div class="status-label" id="statusLabel">WAITING TO START</div>
-        <div id="timeLeft" class="idle">00:00:00</div>
-    </div>
-
-    <!-- PROGRESS BAR -->
-    <div class="bar-area">
-        <div class="bar-row">
-            <span>Progress</span>
-            <span id="pct">0%</span>
-        </div>
-        <div class="bar-bg">
-            <div id="bar-fill"></div>
-        </div>
-    </div>
-
-    <!-- GOALS -->
-    <div class="goals-row">
-        <div class="goal-pill">
-            <label>Half Day</label>
-            <span id="h">--:--</span>
-            <div class="dot dot-half"></div>
-        </div>
-        <div class="goal-pill">
-            <label>Full Day</label>
-            <span id="f">--:--</span>
-            <div class="dot dot-full"></div>
-        </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- CONTROLS -->
-    <div class="controls">
-        <div class="time-input-wrap">
-            <div class="time-input-label">Check-in Time</div>
-            <input type="time" id="tIn">
-        </div>
-        <div class="btns">
-            <button class="btn-start" id="startBtn" onclick="begin(event)">▶ START</button>
-            <button class="btn-reset" onclick="clr(event)">↺ RESET</button>
-        </div>
-    </div>
-
-</div><!-- /card -->
-</div><!-- /main-screen -->
-
-<!-- HISTORY SCREEN -->
 <div id="history-screen">
     <div class="history-card">
         <div class="history-header">
@@ -577,387 +156,205 @@
     </div>
 </div>
 
-<!-- BOTTOM NAV -->
 <div class="bottom-nav">
     <button class="nav-btn active" id="nav-timer" onclick="showTab('timer')">
-        <span class="nav-icon">⏱</span>
-        Timer
+        <span class="nav-icon">⏱</span>Timer
     </button>
     <button class="nav-btn" id="nav-history" onclick="showTab('history')">
-        <span class="nav-icon">📅</span>
-        History
+        <span class="nav-icon">📅</span>History
     </button>
 </div>
 ```
 
 </div>
 
-<!-- INSTALL BANNER -->
-
 <div id="install-banner">
-    <div class="icon">⏱</div>
-    <div class="text">
-        <b>Add to Home Screen</b>
-        <small>Use MyGangs like a native app</small>
-    </div>
+    <div class="icon">⚡</div>
+    <div class="text"><b>Add to Home Screen</b><small>Use MyGangs like a native app</small></div>
     <button id="install-btn">Install</button>
     <button id="dismiss-banner">✕</button>
 </div>
 
 <script>
-// ── History (30 days) ──
-function loadHistory() {
-    try { return JSON.parse(localStorage.getItem('mg_history') || '[]'); } catch(e) { return []; }
-}
-function saveHistory(h) {
-    try { localStorage.setItem('mg_history', JSON.stringify(h)); } catch(e) {}
-    const exp = new Date(Date.now() + 30 * 864e5).toUTCString();
-    document.cookie = 'mg_history=' + encodeURIComponent(JSON.stringify(h)) + ';expires=' + exp + ';path=/';
-}
-function todayKey() {
-    const d = new Date();
-    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-}
-function recordCheckin(timeVal) {
-    let h = loadHistory();
-    const key = todayKey();
-    h = h.filter(r => r.date !== key); // replace today if exists
-    h.unshift({ date: key, checkin: timeVal, checkout: null });
-    // keep only 30 days
-    h = h.slice(0, 30);
-    saveHistory(h);
-}
-function recordCheckout() {
-    let h = loadHistory();
-    const key = todayKey();
-    const rec = h.find(r => r.date === key);
-    if (rec) {
-        const now = new Date();
-        rec.checkout = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
-    }
-    saveHistory(h);
-}
+// Icon embedded as PNG above
 
-function renderHistory() {
-    const list = document.getElementById('history-list');
-    const h = loadHistory();
-    if (!h.length) {
-        list.innerHTML = '<div class="history-empty"><div class="empty-icon">📋</div><span>No history yet</span><span style="font-size:10px;opacity:.6">Start tracking to see your days here</span></div>';
-        return;
-    }
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    list.innerHTML = h.map(rec => {
-        const d = new Date(rec.date + 'T00:00:00');
-        const dd = d.getDate();
-        const mon = months[d.getMonth()];
-        const day = days[d.getDay()];
-        const cin = fmtTime(rec.checkin);
-        const cout = rec.checkout ? fmtTime(rec.checkout) : 'Active...';
-        let worked = '', badge = '', badgeClass = 'partial';
-        if (rec.checkout) {
-            const [ih, im] = rec.checkin.split(':').map(Number);
-            const [oh, om] = rec.checkout.split(':').map(Number);
-            const mins = (oh * 60 + om) - (ih * 60 + im);
-            const wh = Math.floor(mins / 60), wm = mins % 60;
-            worked = wh + 'h ' + wm + 'm worked';
-            if (mins >= 540) { badge = 'Full Day ✓'; badgeClass = 'full'; }
-            else if (mins >= 270) { badge = 'Half Day'; badgeClass = 'half'; }
-            else { badge = wh + 'h ' + wm + 'm'; badgeClass = 'partial'; }
-        } else {
-            badge = 'Ongoing'; badgeClass = 'half';
-            worked = 'Still tracking...';
-        }
+// ── Storage ──
+function save(k,v){try{localStorage.setItem(k,v);}catch(e){}const exp=new Date(Date.now()+30*864e5).toUTCString();document.cookie=k+'='+encodeURIComponent(v)+';expires='+exp+';path=/';}
+function load(k){try{const v=localStorage.getItem(k);if(v!==null)return v;}catch(e){}const m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):null;}
+function removeKey(k){try{localStorage.removeItem(k);}catch(e){}document.cookie=k+'=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';}
+
+// ── History ──
+function loadHistory(){try{return JSON.parse(localStorage.getItem('mg_history')||'[]');}catch(e){return[];}}
+function saveHistory(h){try{localStorage.setItem('mg_history',JSON.stringify(h));}catch(e){}const exp=new Date(Date.now()+30*864e5).toUTCString();document.cookie='mg_history='+encodeURIComponent(JSON.stringify(h))+';expires='+exp+';path=/';}
+function todayKey(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function recordCheckin(t){let h=loadHistory();const k=todayKey();h=h.filter(r=>r.date!==k);h.unshift({date:k,checkin:t,checkout:null});h=h.slice(0,30);saveHistory(h);}
+function recordCheckout(){let h=loadHistory();const k=todayKey();const r=h.find(r=>r.date===k);if(r){const n=new Date();r.checkout=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}saveHistory(h);}
+
+function renderHistory(){
+    const list=document.getElementById('history-list');
+    const h=loadHistory();
+    if(!h.length){list.innerHTML='<div class="history-empty"><div class="empty-icon">📋</div><span>No history yet</span><span style="font-size:10px;opacity:.6">Start tracking to see your days here</span></div>';return;}
+    const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    list.innerHTML=h.map(rec=>{
+        const d=new Date(rec.date+'T00:00:00');
+        const cin=fmtTime(rec.checkin);
+        const cout=rec.checkout?fmtTime(rec.checkout):'Active...';
+        let worked='',badge='',bc='partial';
+        if(rec.checkout){
+            const[ih,im]=rec.checkin.split(':').map(Number);
+            const[oh,om]=rec.checkout.split(':').map(Number);
+            const mins=(oh*60+om)-(ih*60+im);
+            const wh=Math.floor(mins/60),wm=mins%60;
+            worked=wh+'h '+wm+'m worked';
+            if(mins>=540){badge='Full Day ✓';bc='full';}
+            else if(mins>=270){badge='Half Day';bc='half';}
+            else{badge=wh+'h '+wm+'m';bc='partial';}
+        }else{badge='Ongoing';bc='half';worked='Still tracking...';}
         return `<div class="day-row">
-            <div class="day-date"><div class="dd">${dd}</div><div class="dmon">${mon}</div></div>
+            <div class="day-date"><div class="dd">${d.getDate()}</div><div class="dmon">${months[d.getMonth()]}</div></div>
             <div class="day-sep"></div>
-            <div class="day-info">
-                <div class="day-times">${day} · ${cin} → ${cout}</div>
-                <div class="day-worked">${worked}</div>
-            </div>
-            <div class="day-badge ${badgeClass}">${badge}</div>
+            <div class="day-info"><div class="day-times">${days[d.getDay()]} · ${cin} → ${cout}</div><div class="day-worked">${worked}</div></div>
+            <div class="day-badge ${bc}">${badge}</div>
         </div>`;
     }).join('');
 }
 
-function fmtTime(t) {
-    if (!t) return '--:--';
-    const [h, m] = t.split(':').map(Number);
-    return fmt(h, m);
+function fmtTime(t){if(!t)return'--:--';const[h,m]=t.split(':').map(Number);return fmt(h,m);}
+
+function showTab(tab){
+    const main=document.getElementById('main-screen');
+    const hist=document.getElementById('history-screen');
+    const nt=document.getElementById('nav-timer');
+    const nh=document.getElementById('nav-history');
+    if(tab==='timer'){main.style.display='flex';hist.style.display='none';nt.classList.add('active');nh.classList.remove('active');}
+    else{main.style.display='none';hist.style.display='flex';nh.classList.add('active');nt.classList.remove('active');renderHistory();}
 }
 
-// ── Tab switching ──
-function showTab(tab) {
-    const main = document.getElementById('main-screen');
-    const hist = document.getElementById('history-screen');
-    const nt = document.getElementById('nav-timer');
-    const nh = document.getElementById('nav-history');
-    if (tab === 'timer') {
-        main.style.display = 'flex'; hist.style.display = 'none';
-        nt.classList.add('active'); nh.classList.remove('active');
-    } else {
-        main.style.display = 'none'; hist.style.display = 'flex';
-        nh.classList.add('active'); nt.classList.remove('active');
-        renderHistory();
-    }
-}
+// ── Timer state ──
+let loop, running=false;
 
-// ── Storage: cookies + localStorage for persistence ──
-function save(k, v) {
-    try { localStorage.setItem(k, v); } catch(e) {}
-    const exp = new Date(Date.now() + 30 * 864e5).toUTCString();
-    document.cookie = k + '=' + encodeURIComponent(v) + ';expires=' + exp + ';path=/';
-}
-function load(k) {
-    try { const v = localStorage.getItem(k); if (v !== null) return v; } catch(e) {}
-    const m = document.cookie.match('(?:^|; )' + k + '=([^;]*)');
-    return m ? decodeURIComponent(m[1]) : null;
-}
-function removeKey(k) {
-    try { localStorage.removeItem(k); } catch(e) {}
-    document.cookie = k + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
-}
-
-// ── Generate Apple Touch Icon — modern lightning bolt ──
-(function () {
-    const c = document.createElement('canvas');
-    c.width = c.height = 512;
-    const ctx = c.getContext('2d');
-
-    // Background — deep black with rounded corners
-    const r = 112;
-    ctx.beginPath();
-    ctx.moveTo(r, 0); ctx.lineTo(512-r, 0);
-    ctx.quadraticCurveTo(512, 0, 512, r);
-    ctx.lineTo(512, 512-r);
-    ctx.quadraticCurveTo(512, 512, 512-r, 512);
-    ctx.lineTo(r, 512);
-    ctx.quadraticCurveTo(0, 512, 0, 512-r);
-    ctx.lineTo(0, r);
-    ctx.quadraticCurveTo(0, 0, r, 0);
-    ctx.closePath();
-    const bg = ctx.createLinearGradient(0, 0, 512, 512);
-    bg.addColorStop(0, '#1a1a1a');
-    bg.addColorStop(1, '#0a0a0a');
-    ctx.fillStyle = bg;
-    ctx.fill();
-
-    // Subtle glow behind bolt
-    const glow = ctx.createRadialGradient(256, 256, 20, 256, 256, 200);
-    glow.addColorStop(0, 'rgba(255,192,0,0.18)');
-    glow.addColorStop(1, 'rgba(255,192,0,0)');
-    ctx.fillStyle = glow;
-    ctx.fillRect(0, 0, 512, 512);
-
-    // Lightning bolt — clean geometric shape
-    ctx.beginPath();
-    ctx.moveTo(295, 60);    // top right
-    ctx.lineTo(160, 275);   // middle left
-    ctx.lineTo(230, 275);   // middle notch
-    ctx.lineTo(175, 452);   // bottom left
-    ctx.lineTo(360, 220);   // middle right
-    ctx.lineTo(285, 220);   // middle notch right
-    ctx.lineTo(375, 60);    // top right corner
-    ctx.closePath();
-
-    // Gold gradient fill
-    const bolt = ctx.createLinearGradient(160, 60, 360, 452);
-    bolt.addColorStop(0, '#FFE566');
-    bolt.addColorStop(0.5, '#FFC000');
-    bolt.addColorStop(1, '#CC9600');
-    ctx.fillStyle = bolt;
-    ctx.fill();
-
-    // Shine highlight on bolt
-    ctx.beginPath();
-    ctx.moveTo(295, 60);
-    ctx.lineTo(375, 60);
-    ctx.lineTo(285, 220);
-    ctx.lineTo(360, 220);
-    ctx.lineTo(265, 340);
-    ctx.lineTo(230, 275);
-    ctx.lineTo(160, 275);
-    ctx.closePath();
-    ctx.fillStyle = 'rgba(255,255,255,0.08)';
-    ctx.fill();
-
-    document.getElementById('apple-icon').href = c.toDataURL();
-})();
-
-// ── State ──
-let loop, running = false;
-
-function begin(e) {
+function begin(e){
     addRipple(e);
-    if (navigator.vibrate) navigator.vibrate(10);
-
-    const timeVal = document.getElementById('tIn').value;
-    if (!timeVal) {
-        shakeInput();
-        return;
-    }
-
-    clearInterval(loop);
-    running = true;
-
-    const btn = document.getElementById('startBtn');
-    btn.textContent = '⏸ RUNNING';
-    btn.classList.add('running');
-
-    save('pIn', timeVal);
-    localStorage.setItem('pStart', Date.now());
-    recordCheckin(timeVal);
-
-    const [hh, mm] = timeVal.split(':').map(Number);
-
-    // Full Day 9h
-    document.getElementById('f').innerText = fmt((hh + 9) % 24, mm);
-
-    // Half Day 4h30m
-    let hM = mm + 30, hH = hh + 4;
-    if (hM >= 60) { hM -= 60; hH++; }
-    document.getElementById('h').innerText = fmt(hH % 24, hM);
-
-    const status = document.getElementById('statusLabel');
-    status.textContent = 'TRACKING';
-    status.className = 'status-label active';
-
-    loop = setInterval(tick, 1000);
-    tick();
+    if(navigator.vibrate)navigator.vibrate(10);
+    const val=document.getElementById('tIn').value;
+    if(!val){shakeInput();return;}
+    clearInterval(loop);running=true;
+    const btn=document.getElementById('startBtn');
+    btn.textContent='⏸ RUNNING';btn.classList.add('running');
+    save('pIn',val);
+    recordCheckin(val);
+    const[hh,mm]=val.split(':').map(Number);
+    document.getElementById('f').innerText=fmt((hh+9)%24,mm);
+    let hM=mm+30,hH=hh+4;if(hM>=60){hM-=60;hH++;}
+    document.getElementById('h').innerText=fmt(hH%24,hM);
+    const s=document.getElementById('statusLabel');
+    s.textContent='TIME REMAINING';s.className='status-label active';
+    loop=setInterval(tick,1000);tick();
 }
 
-function tick() {
-    const startVal = document.getElementById('tIn').value;
-    if (!startVal) return;
+function tick(){
+    const val=document.getElementById('tIn').value;if(!val)return;
+    const[sh,sm]=val.split(':').map(Number);
+    const now=new Date();
+    const start=new Date();start.setHours(sh,sm,0,0);
+    if(start>now)start.setDate(start.getDate()-1);
+    const end=new Date(start.getTime()+9*3600000);
+    let diff=end-now;const over=diff<0;diff=Math.abs(diff);
+    const h=Math.floor(diff/3600000).toString().padStart(2,'0');
+    const m=Math.floor((diff%3600000)/60000).toString().padStart(2,'0');
+    const s=Math.floor((diff%60000)/1000).toString().padStart(2,'0');
+    const elapsed = now - start;
+    const eh = Math.floor(Math.max(0,elapsed)/3600000);
+    const em = Math.floor((Math.max(0,elapsed)%3600000)/60000);
+    const elapsedEl = document.getElementById('elapsed-label');
+    if(elapsedEl) elapsedEl.textContent = 'ELAPSED: '+eh+'h '+em+'m';
 
-    const [sh, sm] = startVal.split(':').map(Number);
-    const now = new Date();
-    const start = new Date();
-    start.setHours(sh, sm, 0, 0);
-    const end = new Date(start.getTime() + 9 * 3600000);
-
-    let diff = end - now;
-    const over = diff < 0;
-    diff = Math.abs(diff);
-
-    const h = Math.floor(diff / 3600000).toString().padStart(2, '0');
-    const m = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
-    const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
-
-    const display = document.getElementById('timeLeft');
-    display.innerText = (over ? '+' : '') + h + ':' + m + ':' + s;
-    display.className = over ? 'over' : '';
-
-    const status = document.getElementById('statusLabel');
-    if (over) {
-        status.textContent = '✓ FULL DAY DONE';
-        status.className = 'status-label done';
-    }
-
-    // Progress
-    let p = ((now - start) / 32400000) * 100;
-    p = Math.max(0, Math.min(p, 100));
-    document.getElementById('bar-fill').style.width = p + '%';
-    document.getElementById('pct').textContent = Math.floor(p) + '%';
-
-    // Ring (circumference = 2π×90 ≈ 565.5)
-    const offset = 565.5 - (565.5 * p / 100);
-    document.getElementById('ring-circle').style.strokeDashoffset = offset;
+    const display=document.getElementById('timeLeft');
+    display.innerText=(over?'+':'')+h+':'+m+':'+s;
+    display.className=over?'over':'';
+    const status=document.getElementById('statusLabel');
+    if(over){status.textContent='✓ FULL DAY DONE';status.className='status-label done';}
+    let p=((now-start)/32400000)*100;p=Math.max(0,Math.min(p,100));
+    document.getElementById('bar-fill').style.width=p+'%';
+    document.getElementById('pct').textContent=Math.floor(p)+'%';
+    document.getElementById('ring-circle').style.strokeDashoffset=565.5-(565.5*p/100);
 }
 
-function fmt(h, m) {
-    const p = h >= 12 ? 'PM' : 'AM';
-    h = h % 12 || 12;
-    return h + ':' + m.toString().padStart(2, '0') + ' ' + p;
-}
+function fmt(h,m){const p=h>=12?'PM':'AM';h=h%12||12;return h+':'+m.toString().padStart(2,'0')+' '+p;}
 
-function clr(e) {
+function exitApp(e){
     addRipple(e);
-    if (navigator.vibrate) navigator.vibrate([10, 30, 10]);
-    recordCheckout();
-    clearInterval(loop);
-    running = false;
-    removeKey('pIn');
-    removeKey('pStart');
-    location.reload();
+    if(!running){ alert('No active session.'); return; }
+    if(confirm('Check out for today?')){
+        recordCheckout();
+        clearInterval(loop);
+        running=false;
+        removeKey('pIn');
+        // Update UI to show checked out state
+        const now=new Date();
+        const s=document.getElementById('statusLabel');
+        s.textContent='✓ CHECKED OUT';
+        s.className='status-label done';
+        document.getElementById('startBtn').textContent='▶ START';
+        document.getElementById('startBtn').classList.remove('running');
+        document.getElementById('tIn').value='';
+        const elapsedEl=document.getElementById('elapsed-label');
+        if(elapsedEl) elapsedEl.textContent='Checkout saved to history';
+    }
 }
 
-function addRipple(e) {
-    if (!e) return;
-    const btn = e.currentTarget;
-    const r = document.createElement('span');
-    r.className = 'ripple-el';
-    const rect = btn.getBoundingClientRect();
-    r.style.left = ((e.clientX || rect.left + rect.width / 2) - rect.left) + 'px';
-    r.style.top  = ((e.clientY || rect.top + rect.height / 2) - rect.top) + 'px';
-    btn.appendChild(r);
-    setTimeout(() => r.remove(), 700);
+function clr(e){
+    addRipple(e);if(navigator.vibrate)navigator.vibrate([10,30,10]);
+    recordCheckout();clearInterval(loop);running=false;
+    removeKey('pIn');location.reload();
 }
 
-function shakeInput() {
-    const el = document.getElementById('tIn');
-    el.style.borderColor = 'var(--red)';
-    el.style.animation = 'none';
-    let i = 0;
-    const shake = setInterval(() => {
-        el.style.transform = i % 2 === 0 ? 'translateX(6px)' : 'translateX(-6px)';
-        if (++i > 5) { clearInterval(shake); el.style.transform = ''; el.style.borderColor = ''; }
-    }, 60);
+function addRipple(e){
+    if(!e)return;const btn=e.currentTarget;
+    const r=document.createElement('span');r.className='ripple-el';
+    const rect=btn.getBoundingClientRect();
+    r.style.left=((e.clientX||rect.left+rect.width/2)-rect.left)+'px';
+    r.style.top=((e.clientY||rect.top+rect.height/2)-rect.top)+'px';
+    btn.appendChild(r);setTimeout(()=>r.remove(),700);
 }
 
-// ── Resume on return from background ──
-document.addEventListener('visibilitychange', () => {
-    if (!document.hidden && running) tick();
+function shakeInput(){
+    const el=document.getElementById('tIn');el.style.borderColor='var(--red)';
+    let i=0;const iv=setInterval(()=>{
+        el.style.transform=i%2===0?'translateX(6px)':'translateX(-6px)';
+        if(++i>5){clearInterval(iv);el.style.transform='';el.style.borderColor='';}
+    },60);
+}
+
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&running)tick();});
+window.addEventListener('focus',()=>{if(running)tick();});
+
+// Auto-resume
+(function(){const s=load('pIn');if(s){document.getElementById('tIn').value=s;begin(null);}})();
+
+// Install banner
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{
+    e.preventDefault();deferredPrompt=e;
+    if(!load('installDismissed'))document.getElementById('install-banner').style.display='flex';
 });
-window.addEventListener('focus', () => { if (running) tick(); });
-
-// ── Auto-resume ──
-(function check() {
-    const s = load('pIn');
-    if (s) {
-        document.getElementById('tIn').value = s;
-        begin(null);
-    }
-})();
-
-// ── PWA Install Banner ──
-let deferredPrompt = null;
-window.addEventListener('beforeinstallprompt', e => {
-    e.preventDefault();
-    deferredPrompt = e;
-    const banner = document.getElementById('install-banner');
-    if (!load('installDismissed')) {
-        banner.style.display = 'flex';
-    }
+document.getElementById('install-btn').addEventListener('click',()=>{
+    if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{deferredPrompt=null;document.getElementById('install-banner').style.display='none';});}
+    else{alert('Tap the Share button (□↑) in Safari → "Add to Home Screen" → "Add".');}
 });
-
-document.getElementById('install-btn').addEventListener('click', () => {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(() => {
-            deferredPrompt = null;
-            document.getElementById('install-banner').style.display = 'none';
-        });
-    } else {
-        alert('On iPhone: tap the Share button (□↑) at the bottom of Safari, then "Add to Home Screen" → "Add".');
-    }
+document.getElementById('dismiss-banner').addEventListener('click',()=>{
+    document.getElementById('install-banner').style.display='none';save('installDismissed','1');
 });
-
-document.getElementById('dismiss-banner').addEventListener('click', () => {
-    document.getElementById('install-banner').style.display = 'none';
-    save('installDismissed', '1');
-});
-
-// Show iOS hint after 3s if no install event fired
-setTimeout(() => {
-    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-    const isStandalone = window.navigator.standalone;
-    const banner = document.getElementById('install-banner');
-    if (isIOS && !isStandalone && !load('installDismissed') && banner.style.display !== 'flex') {
-        banner.style.display = 'flex';
-        document.getElementById('install-btn').textContent = 'How?';
+setTimeout(()=>{
+    const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+    const isStandalone=window.navigator.standalone;
+    const banner=document.getElementById('install-banner');
+    if(isIOS&&!isStandalone&&!load('installDismissed')&&banner.style.display!=='flex'){
+        banner.style.display='flex';
+        document.getElementById('install-btn').textContent='How?';
     }
-}, 3000);
+},3000);
 </script>
 
 </body>
